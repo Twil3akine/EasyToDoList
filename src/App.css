@@ -4,3 +4,29 @@
   padding: 2rem;
   text-align: center;
 }
+
+form {
+  height: 70vh;
+  width: 30vw;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+
+  gap: 2.5vh;
+}
+
+form > input[type="submit"] {
+  margin: 0 auto;
+  width: 5vw;
+  padding: 1% 0 1% 0;
+}
+
+form > * > input, textarea {
+  margin: 0 auto 0 15px;
+}
+
+form > * > textarea {
+  transform: translate(0, 35%);
+}
