@@ -1,10 +1,5 @@
-@tailwind base;
-
-@plugin "tailwindcss-animate";
-
 @custom-variant dark (&:is(.dark *));
-@tailwind components;
-@tailwind utilities;
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&family=Ubuntu+Sans+Mono:ital,wght@0,400..700;1,400..700&display=swap');
 
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
@@ -52,6 +47,10 @@
   --sidebar-accent-foreground: oklch(0.21 0.006 285.885);
   --sidebar-border: oklch(0.92 0.004 286.32);
   --sidebar-ring: oklch(0.871 0.006 286.286);
+}
+
+* {
+  font-family: "Ubuntu Sans Mono", serif;
 }
 
 a {
