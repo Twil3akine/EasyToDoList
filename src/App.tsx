@@ -6,7 +6,7 @@ function App() {
 
   const [title, setTitle] = useState<string>("");
   const [description, setDescription] = useState<string>("");
-  const [limit, setLimit] = useState<string>(`${today.getFullYear()}-${today.getMonth()+1}-${today.getDate()}`)
+  const [limit, setLimit] = useState<string>(`${today.getFullYear()}-${(today.getMonth()+1).toString().padStart(2, '0')}-${today.getDate().toString().padStart(2, '0')}`)
   const [completed, setCompleted] = useState<boolean>(false);
 
   const handleTitleChange: ChangeEventHandler<HTMLInputElement> = ({ target }) => {
