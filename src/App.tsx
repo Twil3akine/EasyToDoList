@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Button } from '@/components/ui/button'
 import './App.css'
 
 function App() {
@@ -6,7 +7,7 @@ function App() {
 
   return (
     <>
-        <button onClick={() => setCount((count) => count + 1)}>count is {count}</button>
+        <Button onClick={() => setCount((count) => count + (Math.random() >= 0.5 ? 1 : -1))}>count is {count}</Button>
     </>
   )
 }
