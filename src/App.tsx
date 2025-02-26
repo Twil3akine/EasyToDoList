@@ -35,21 +35,25 @@ function App() {
 
   return (
     <>
-      <form onSubmit={handleSubmit}>
-        <label>Title:
-          <input type="text" value={title} onChange={handleTitleChange} />
+      <form name='Form' onSubmit={handleSubmit}>
+        <label>
+          Title:
+          <input type="text" name='title' value="Input task title" />
         </label>
 
-        <label>Description:
-          <textarea value={description} onChange={handleDescriptionChange} />
+        <label>
+          Description:
+          <textarea name='description' value="Input task description" />
         </label>
 
-        <label>Limit:
-          <input type="date" value={limit} onChange={handleLimitChange} />
+        <label>
+          Limit:
+          <input type="date" name='limit' defaultValue={limit} />
         </label>
 
-        <label>Completed:
-          <input type="checkbox" onChange={handleCompletedChange} />
+        <label>
+          Completed:
+          <input type="checkbox" name='completed' defaultValue="" />
         </label>
 
         <input type="submit" value={"Submit"} />
