@@ -1,52 +1,72 @@
 import './App.css'
-import { FormEventHandler } from 'react'
+import { useForm, SubmitHandler } from 'react-hook-form'
+import { zodResolver} from "@hookform/resolvers/zod";
+import { z } from 'zod'
 
-function App() {
-  const today = new Date();
-  const limit = `${today.getFullYear()}-${(today.getMonth()+1).toString().padStart(2, '0')}-${today.getDate().toString().padStart(2, '0')}`;
+const tmpDate = new Date();
+const today = `${tmpDate.getFullYear()}-${(tmpDate.getMonth()+1).toString().padStart(2, '0')}-${(tmpDate.getDate()).toString().padStart(2, '0')}`
 
-  const handleSubmit: FormEventHandler<HTMLFormElement> = (event) => {
-    event.preventDefault();
+const submitSchema = z.object({
+  title: z.string().min(1, { message: "Title is required." }),
+  description: z.string().nullable(),
+  tag: z.string().nullable(),
+  limit: z.date().min(new Date(new Date().setDate(new Date().getDate()-1)), { message: "Limit must be over today." }),
+});
 
-    const form: FormData = new FormData(event.currentTarget);
+type SubmitShema = z.infer<typeof submitSchema>;
 
-    const title = form.get("title") || "";
-    const description = form.get("description") || "";
-    const limit = form.get("limit") || "";
-    const completed: boolean = form.get("completed") === "on" || false;
+const App = () => {
 
-    alert(
-      `${title}\n${description}\n${limit}\n${completed ? "Yes" : "No"}`
-    )
-  }
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<SubmitShema>({
+    resolver: zodResolver(submitSchema),
+  });
+
+  const onSubmit: SubmitHandler<SubmitShema> = (d) => {
+    console.log(d)
+    alert(`${d.title}\n${d.description}\n${d.tag}\n${d.limit}`);
+  };
 
   return (
     <>
-      <form name='Form' onSubmit={handleSubmit}>
-        <label>
-          Title:
-          <input type="text" name='title' defaultValue="Input task title" />
-        </label>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <div className='container'>
+          <div>
+            <p>Title:</p>
+            <input type="text" {...register('title', { required: true })} placeholder='Input title' />
+          </div>
+          {errors.title && <p className='error_message'>{errors.title.message}</p>}
+        </div>
 
-        <label>
-          Description:
-          <textarea name='description' defaultValue="Input task description" />
-        </label>
+        <div className='container'>
+          <div>
+            <p>Description:</p>
+            <textarea placeholder={"Input description"}></textarea>
+          </div>
+        </div>
 
-        <label>
-          Limit:
-          <input type="date" name='limit' defaultValue={limit} />
-        </label>
+        <div className='container'>
+          <div>
+            <p>Tag:</p>
+            <input type="text" placeholder='Input tag' />
+          </div>
+        </div>
 
-        <label>
-          Completed:
-          <input type="checkbox" name='completed' defaultValue="" />
-        </label>
+        <div className='container'>
+          <div>
+            <p>Limit:</p>
+            <input type="date" defaultValue={today} {...register('limit', { required: true, valueAsDate: true })} />
+          </div>
+          {errors.limit && <p className='error_message'>{errors.limit.message}</p>}
+        </div>
 
-        <input type="submit" value={"Submit"} />
+        <button type='submit'>Submit</button>
       </form>
     </>
   )
 }
 
-export default App
+export default App;
