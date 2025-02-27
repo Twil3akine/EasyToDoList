@@ -1,32 +1,19 @@
 import './App.css'
-import { ChangeEventHandler, FormEventHandler, useState } from 'react'
+import { FormEventHandler } from 'react'
 
 function App() {
   const today = new Date();
+  const limit = `${today.getFullYear()}-${(today.getMonth()+1).toString().padStart(2, '0')}-${today.getDate().toString().padStart(2, '0')}`;
 
-  const [title, setTitle] = useState<string>("");
-  const [description, setDescription] = useState<string>("");
-  const [limit, setLimit] = useState<string>(`${today.getFullYear()}-${(today.getMonth()+1).toString().padStart(2, '0')}-${today.getDate().toString().padStart(2, '0')}`)
-  const [completed, setCompleted] = useState<boolean>(false);
-
-  const handleTitleChange: ChangeEventHandler<HTMLInputElement> = ({ target }) => {
-    setTitle(target.value);
-  }
-
-  const handleDescriptionChange: ChangeEventHandler<HTMLTextAreaElement> = ({ target }) => {
-    setDescription(target.value);
-  }
-
-  const handleLimitChange: ChangeEventHandler<HTMLInputElement> = ({ target }) => {
-    setLimit(target.value);
-  }
-
-  const handleCompletedChange: ChangeEventHandler<HTMLInputElement> = ({ target }) => {
-    setCompleted(target.value === "on");
-  }
-
-  const handleSubmit: FormEventHandler<HTMLFormElement> = ( event ) => {
+  const handleSubmit: FormEventHandler<HTMLFormElement> = (event) => {
     event.preventDefault();
+
+    const form: FormData = new FormData(event.currentTarget);
+
+    const title = form.get("title") || "";
+    const description = form.get("description") || "";
+    const limit = form.get("limit") || "";
+    const completed: boolean = form.get("completed") === "on" || false;
 
     alert(
       `${title}\n${description}\n${limit}\n${completed ? "Yes" : "No"}`
