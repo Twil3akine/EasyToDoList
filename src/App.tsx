@@ -25,12 +25,12 @@ function App() {
       <form name='Form' onSubmit={handleSubmit}>
         <label>
           Title:
-          <input type="text" name='title' value="Input task title" />
+          <input type="text" name='title' defaultValue="Input task title" />
         </label>
 
         <label>
           Description:
-          <textarea name='description' value="Input task description" />
+          <textarea name='description' defaultValue="Input task description" />
         </label>
 
         <label>
