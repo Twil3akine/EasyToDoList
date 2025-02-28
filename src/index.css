@@ -47,10 +47,13 @@
   --sidebar-accent-foreground: oklch(0.21 0.006 285.885);
   --sidebar-border: oklch(0.92 0.004 286.32);
   --sidebar-ring: oklch(0.871 0.006 286.286);
+  --font-size: 16px;
 }
 
 * {
   font-family: "Ubuntu Sans Mono", serif;
+  padding: 0;
+  margin: 0;
 }
 
 a {
@@ -60,6 +63,10 @@ a {
 }
 a:hover {
   color: #535bf2;
+}
+
+p {
+  font-size: var(--font-size);
 }
 
 body {

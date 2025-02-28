@@ -10,7 +10,7 @@ const submitSchema = z.object({
   title: z.string().min(1, { message: "Title is required." }),
   description: z.string().nullable(),
   tag: z.string().nullable(),
-  limit: z.date().min(new Date(new Date().setDate(new Date().getDate()-1)), { message: "Limit must be over today." }),
+  limit: z.date().min(new Date(new Date().setDate(new Date().getDate()-1)), { message: "limit must be after today." }),
 });
 
 type SubmitShema = z.infer<typeof submitSchema>;
@@ -33,7 +33,7 @@ const App = () => {
   return (
     <>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div className='container'>
+        <div className='container title'>
           <div>
             <p>Title:</p>
             <input type="text" {...register('title', { required: true })} placeholder='Input title' />
@@ -41,21 +41,21 @@ const App = () => {
           {errors.title && <p className='error_message'>{errors.title.message}</p>}
         </div>
 
-        <div className='container'>
+        <div className='container description'>
           <div>
             <p>Description:</p>
             <textarea placeholder={"Input description"}></textarea>
           </div>
         </div>
 
-        <div className='container'>
+        <div className='container tag'>
           <div>
             <p>Tag:</p>
             <input type="text" placeholder='Input tag' />
           </div>
         </div>
 
-        <div className='container'>
+        <div className='container limit'>
           <div>
             <p>Limit:</p>
             <input type="date" defaultValue={today} {...register('limit', { required: true, valueAsDate: true })} />
@@ -63,7 +63,7 @@ const App = () => {
           {errors.limit && <p className='error_message'>{errors.limit.message}</p>}
         </div>
 
-        <button type='submit'>Submit</button>
+        <button type='submit' className='submit'>Submit</button>
       </form>
     </>
   )
