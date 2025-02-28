@@ -70,6 +70,6 @@ textarea {
 
 .error_message {
   color: red;
-  font-size: calc(var(--font-size) * 0.9);
+  font-size: calc(var(--font-size) * 0.83);
   text-align: left;
 }
